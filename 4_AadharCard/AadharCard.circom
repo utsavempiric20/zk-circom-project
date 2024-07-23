@@ -5,21 +5,24 @@ include "./node_modules/circomlib/circuits/bitify.circom";
 include "./node_modules/circomlib/circuits/comparators.circom";
 include "./node_modules/circomlib/circuits/mux1.circom";
 
-template AadharCard(n) {
+/**
+* @dev Use Differnet Approach for greater than 15 length
+*/
+template AadharCard(max_name_length) {
 
-    signal input name[n];
+    signal input name[max_name_length];
     signal input DOB;
     signal output IdentificationNumber;
     signal output userProofNumber;
-    
-    component uniqueNumber = Poseidon(n+1);
+
+    component uniqueNumber = Poseidon(max_name_length+1);
     component generatedUserProof = Poseidon(1);
     component hash12 = calculateHash12();
 
-    for (var i = 0; i < n; i++){
+    for (var i = 0; i < max_name_length; i++){
         uniqueNumber.inputs[i] <== name[i];
     }
-    uniqueNumber.inputs[n] <== DOB;
+    uniqueNumber.inputs[max_name_length] <== DOB;
     hash12.in1 <== uniqueNumber.out;
     
     generatedUserProof.inputs[0] <== uniqueNumber.out;
@@ -27,8 +30,8 @@ template AadharCard(n) {
     IdentificationNumber <== hash12.out;
     userProofNumber <==  generatedUserProof.out;
 
-    // log("IdentificationNumber --> ",IdentificationNumber);
-    // log("userProofNumber --> ",userProofNumber);
+    log(IdentificationNumber);
+    log(userProofNumber);
 }
 
 template calculateHash12(){
@@ -58,12 +61,6 @@ template calculateHash12(){
     mux.s <== lessThan.out;
 
     out <== 1000000000000 + mux.out;
-
-    log("lcSignal : ",lcSignal);
-    log("lcSignal - 900000000000 : ",lcSignal-900000000000);
-    log("lessThan.out : ",lessThan.out);
-    log("mux.out : ",mux.out);
-    log("out : ",out);
 }
 
-component main = AadharCard(5);
+component main = AadharCard(15);
