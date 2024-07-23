@@ -1,0 +1,11 @@
+1,1,0,main.valid
+2,-1,0,main.str[0]
+3,-1,0,main.str[1]
+4,-1,0,main.str[2]
+5,-1,0,main.str[3]
+6,-1,0,main.str[4]
+7,2,0,main.isLowerCase[0]
+8,3,0,main.isLowerCase[1]
+9,4,0,main.isLowerCase[2]
+10,5,0,main.isLowerCase[3]
+11,6,0,main.isLowerCase[4]
