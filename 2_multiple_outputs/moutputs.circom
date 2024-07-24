@@ -41,7 +41,6 @@ template subCircuitData(){
 
     temp <== in1 * in1;
     out <== temp - temp + in1;
-    log("out ",out);
-}   
+}
 
 component main {public [expectedData]} = moutputs(5);
