@@ -47,6 +47,8 @@ template AadharCard(max_name_length,max_biometric_data) {
 
     IdentificationNumber <== uniqueNumber.out;
     userProofNumber <==  generatedUserProof.out;
+    log(IdentificationNumber);
+    log(userProofNumber);
 }
 
 template calculatUniqueHash12(){
